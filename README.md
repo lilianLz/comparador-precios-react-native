@@ -76,15 +76,42 @@ npx expo start --go --lan
 - No se permiten negocios con nombres duplicados.
 - Siempre debe quedar al menos un negocio para realizar comparaciones.
 
+## Persistencia de datos
+
+La aplicación utiliza `AsyncStorage` para guardar los datos localmente en el dispositivo.
+
+Se persisten los productos, negocios, precios, historial de precios y productos seleccionados para la compra. Al iniciar la aplicación, se cargan los datos guardados; si es la primera ejecución, se utilizan los datos iniciales de `data/seed.js`.
+
+La dependencia se instala con:
+
+```bash
+npx expo install @react-native-async-storage/async-storage
+```
+
+La persistencia es local y no requiere conexión con un servidor o una base de datos externa.
+
 ## Estructura principal
 
 ```text
 comparador-precios/
-├── App.js
+├── App.js                  # Punto de entrada y pestañas principales
+├── screens/                # Vistas principales de la aplicación
+│   ├── ProductsScreen.js
+│   ├── CartScreen.js
+│   └── BusinessesScreen.js
+├── components/             # Componentes reutilizables
+│   ├── CommonComponents.js
+│   └── ProductComponents.js
+├── hooks/                  # Estado y operaciones de los datos
+│   └── usePriceData.js
+├── utils/                  # Formateos y cálculos
+│   └── priceUtils.js
 ├── data/
-│   └── seed.js
+│   └── seed.js              # Datos iniciales
+├── styles.js               # Estilos compartidos
 ├── assets/
 ├── app.json
+├── package-lock.json
 ├── package.json
 └── README.md
 ```
